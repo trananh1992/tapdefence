@@ -1,53 +1,34 @@
 package com.kulinich.tapdefence;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.graphics.Point;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
-import com.kulinich.tapdefence.graphics.GameSurface;
+import com.swarmconnect.Swarm;
+import com.swarmconnect.SwarmActivity;
+import com.swarmconnect.SwarmLeaderboard;
 
 @SuppressLint("NewApi")
-public class MainActivity extends Activity {
-	
-    /** A handle to the thread that's actually running the animation. */
-    private GameSurface.GameThread mGameThread;
-
-    /** A handle to the View in which the game is running. */
-    private GameSurface mGameSurface;
-
-	
-	@SuppressWarnings("deprecation")
+public class MainActivity extends SwarmActivity {
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		mGameSurface = new GameSurface(this);
-		setContentView(mGameSurface);
+		Swarm.init(this, 4047, "2c3b6aceb6389e3edeafe239ae9fcb65");
 		
-		// Get screen resolution
-		Display display = getWindowManager().getDefaultDisplay();
-		int width, height;
-		if (android.os.Build.VERSION.SDK_INT < 13) {
-			width = display.getWidth();
-			height = display.getHeight();
-		} else {
-			Point size = new Point();
-			display.getSize(size);
-			width = size.x;
-			height = size.y;	
-		}
-		
-		mGameThread = mGameSurface.getThread();
-		mGameThread.setSurfaceSize(width, height);
-		mGameThread.doStart();
+		setContentView(R.layout.activity_main);
+	}
+
+	public void gameStart(View v) {
+		Intent myIntent = new Intent(this, GameActivity.class);
+		startActivity(myIntent);
 	}
 	
-	@Override
-	protected void onPause() {
-		super.onPause();
-		mGameThread.pause();
+	public void goSwarm(View v) {
+		SwarmLeaderboard.showLeaderboard(6237);
 	}
 }

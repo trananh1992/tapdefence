@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">TapDefence</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
-
+    <string name="app_name">Tap Defence</string>
+    <string name="menu_start">Start</string>
+    <string name="menu_swarm">Highscores</string>
+    <string name="game_over">Game over.</string>
+    <string name="score_msg">Your score is</string>
+    <string name="submit">Submit!</string>
+    <string name="cancel">To menu</string>
 </resources>
