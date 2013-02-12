@@ -114,7 +114,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 		private int STARS = 42;
 		private int STAR_MAX_RADIUS = 2;
 		
-		private float ALARM_SPEED = 0.1f;
+		private float ALARM_LEVEL = 0.2f;
 		
 		private float RUMBLE_WALL_HIT = 10;
 		private float RUMBLE_PLAYER_HIT = 20;
@@ -182,7 +182,6 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 		private int mRumbleAmount;
 		
 		private boolean mAlarm;
-		private boolean mAlarmDown;
 		private float mAlarmLevel;
 		
 		private float mPower;
@@ -473,10 +472,12 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.drawRect(mScratchRect, mUIPowerGhostPaint);
 			
 			// Alarm
-			mScratchRect.set(0, 0, mCanvasWidth, mCanvasHeight);
-			Paint alarm = new Paint(mAlarmPaint);
-			alarm.setAlpha(Math.round(mAlarmLevel * 255));
-			canvas.drawRect(mScratchRect, alarm);
+			if (mAlarm) {
+				mScratchRect.set(0, 0, mCanvasWidth, mCanvasHeight);
+				Paint alarm = new Paint(mAlarmPaint);
+				alarm.setAlpha(Math.round(mAlarmLevel * 64));
+				canvas.drawRect(mScratchRect, alarm);
+			}
 		}
 
 		private synchronized void update() {
@@ -499,17 +500,6 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 				setState(STATE_LOSE);
 				return;
 			}
-			
-			// Trigger alarm
-			if (mHealth / HEALTH_MAX <= 1) {
-				mAlarm = true;
-				mAlarmDown = false;
-				mAlarmLevel = 0;
-			} else {
-				mAlarm = false;
-			}
-
-			updateAlarm(elapsed);
 
 			// Player draws some walls
 			// TODO: Fix occasional NullPointerExceptions
@@ -560,6 +550,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 			}
 			
 			updateDifficulty(elapsed);
+			updateAlarm(elapsed);
 			updateParticles(elapsed);
 			updateEnemies(elapsed);
 			
@@ -571,25 +562,12 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		
 		private void updateAlarm(double elapsed) {
-			if (mAlarmLevel > 0) {
-				if (mAlarmDown) {
-					mAlarmLevel -= ALARM_SPEED * elapsed;
-					if (mAlarmLevel < 0) {
-						mAlarmLevel = 0;
-						mAlarmDown = false;
-					}
-				} else {
-					mAlarmLevel += ALARM_SPEED * elapsed;
-					if (mAlarmLevel > 1) {
-						mAlarmLevel = 1;
-						mAlarmDown = true;
-					}
-				}
+			if (mHealth / HEALTH_MAX < ALARM_LEVEL) {
+				mAlarm = true;
+				mAlarmLevel = 1 - mHealth / (HEALTH_MAX * ALARM_LEVEL);
 			} else {
-				if (mAlarm) {
-					mAlarmLevel += ALARM_SPEED * elapsed;
-				}
-			}			
+				mAlarm = false;
+			}
 		}
 
 		private void updateParticles(double elapsed) {
