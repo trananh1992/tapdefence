@@ -1,5 +1,7 @@
 package com.kulinich.tapdefence;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -7,26 +9,33 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.kulinich.tapdefence.R;
-import com.swarmconnect.Swarm;
 import com.swarmconnect.SwarmLeaderboard;
 
+
 public class ScoreDialog extends DialogFragment {
-
 	public long score = 0;
-
+	
+	public String formatScore(long score) {
+		DecimalFormat formatter = new DecimalFormat("#,###");
+		return formatter.format(score);
+	}
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		// Use the Builder class for convenient dialog construction
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle(R.string.game_over)
 				.setMessage(
 						getString(R.string.score_msg) + " "
-								+ String.valueOf(score))
+								+ formatScore(score))
 				.setPositiveButton(R.string.submit,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								SwarmLeaderboard.submitScoreAndShowLeaderboard(6237, score);
+								try {
+								    Thread.sleep(250);
+								} catch(InterruptedException ex) {
+								    Thread.currentThread().interrupt();
+								}
 							}
 						})
 				.setNegativeButton(R.string.cancel,
@@ -35,7 +44,6 @@ public class ScoreDialog extends DialogFragment {
 
 							}
 						});
-		// Create the AlertDialog object and return it
 		return builder.create();
 	}
 
@@ -45,5 +53,4 @@ public class ScoreDialog extends DialogFragment {
 		Activity activity = (Activity) getActivity();
 		activity.finish();
 	}
-
 }

@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">Tap Defence</string>
     <string name="menu_start">Start</string>
-    <string name="menu_swarm">Highscores</string>
+    <string name="menu_high">Highscores</string>
+    <string name="menu_swarm">Swarm</string>
     <string name="game_over">Game over.</string>
     <string name="score_msg">Your score is</string>
     <string name="submit">Submit!</string>

@@ -3,18 +3,18 @@ package com.kulinich.tapdefence;
 import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.kulinich.tapdefence.engine.GameSurface;
+import com.kulinich.tapdefence.engine.GameThread;
 
 @SuppressLint("NewApi")
 public class GameActivity extends FragmentActivity {
 	
-    private GameSurface.GameThread mGameThread;
+    private GameThread mGameThread;
     private GameSurface mGameSurface;
     
 	@SuppressWarnings("deprecation")

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.swarmconnect.Swarm;
 import com.swarmconnect.SwarmActivity;
@@ -28,7 +26,11 @@ public class MainActivity extends SwarmActivity {
 		startActivity(myIntent);
 	}
 	
-	public void goSwarm(View v) {
+	public void goLeaderboard(View v) {
 		SwarmLeaderboard.showLeaderboard(6237);
+	}
+	
+	public void goDashboard(View v) {
+		Swarm.showDashboard();
 	}
 }

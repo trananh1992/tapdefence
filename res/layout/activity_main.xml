@@ -15,11 +15,19 @@
         android:text="@string/menu_start" />
 
     <Button
+        android:id="@+id/high"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="goLeaderboard"
+        android:text="@string/menu_high" />
+    
+    <Button
         android:id="@+id/swarm"
         android:layout_width="137dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:onClick="goSwarm"
+        android:onClick="goDashboard"
         android:text="@string/menu_swarm" />
 
 </LinearLayout>
