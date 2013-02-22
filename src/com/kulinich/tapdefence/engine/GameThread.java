@@ -36,8 +36,6 @@ public class GameThread extends Thread {
 	boolean mRun;
 	int mMode;
 
-	// Wall drawing
-
 	public GameThread(SurfaceHolder surfaceHolder, Context context,
 			Handler handler) {
 		mSurfaceHolder = surfaceHolder;
