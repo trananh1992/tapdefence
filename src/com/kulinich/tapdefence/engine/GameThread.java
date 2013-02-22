@@ -21,10 +21,8 @@ import android.view.SurfaceHolder;
 
 public class GameThread extends Thread {
 
-	private Game mGame;
-	private InputHandler mInput;
-
-	private RectF mScratchRect = new RectF(0, 0, 0, 0);
+	Game mGame;
+	InputHandler mInput;
 
 	SurfaceHolder mSurfaceHolder;
 	Handler mHandler;
@@ -35,6 +33,8 @@ public class GameThread extends Thread {
 
 	boolean mRun;
 	int mMode;
+
+	private RectF mScratchRect = new RectF(0, 0, 0, 0);
 
 	public GameThread(SurfaceHolder surfaceHolder, Context context,
 			Handler handler) {

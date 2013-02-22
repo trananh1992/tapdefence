@@ -336,7 +336,8 @@ public class Game {
 		mAlarm = false;
 		mExplosionLast = 0;
 		makePlayerDebris();
-
+		
+		mContext.mInput.clear();
 		mWalls.clear();
 		mEnemies.clear();
 	}
